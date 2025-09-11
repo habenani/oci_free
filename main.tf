@@ -144,11 +144,8 @@ resource "oci_core_instance" "free_instance0" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_ocid
   display_name        = "freeInstance0"
-  shape               = "VM.Standard.A1.Flex"
-  shape_config {
-    memory_in_gbs = 4
-    ocpus = 1
-  }
+  shape               = "VM.Standard.E2.1.Micro"
+
   create_vnic_details {
     subnet_id        = oci_core_subnet.test_subnet.id
     display_name     = "primaryvnic"
@@ -186,7 +183,7 @@ data "oci_core_images" "test_images" {
   compartment_id = var.compartment_ocid
 
   #Optional
-  shape = "VM.Standard.A1.Flex"
+  shape = "VM.Standard.E2.1.Micro"
 }
 
 output "app" {
@@ -200,26 +197,5 @@ data "oci_database_autonomous_databases" "test_autonomous_databases" {
   #Optional
   db_workload  = "OLTP"
   is_free_tier = "true"
-}
-
-resource "oci_database_autonomous_database" "test_autonomous_database" {
-  #Required
-  admin_password           = "Testalwaysfree1"
-  compartment_id           = var.compartment_ocid
-  cpu_core_count           = "1"
-  data_storage_size_in_tbs = "1"
-  db_name                  = "testadb"
-
-  #Optional
-  db_workload  = "OLTP"
-  display_name = "test_autonomous_database"
-
-  freeform_tags = {
-    "Department" = "Finance"
-  }
-
-  is_auto_scaling_enabled = "false"
-  license_model           = "LICENSE_INCLUDED"
-  is_free_tier            = "true"
 }
 
