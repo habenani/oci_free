@@ -34,7 +34,7 @@ variable "ad_region_mapping" {
   type = map(string)
 
   default = {
-    us-london-1 = 1
+    us-london-1 = 2
   }
 }
 
@@ -146,7 +146,7 @@ resource "oci_core_instance" "free_instance0" {
   display_name        = "freeInstance0"
   shape               = "VM.Standard.A1.Flex"
   shape_config {
-    memory_in_gbs = 6
+    memory_in_gbs = 4
     ocpus = 1
   }
   create_vnic_details {
@@ -164,6 +164,10 @@ resource "oci_core_instance" "free_instance0" {
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
   }
+}
+
+output "compute_instance_ip" {
+  value = oci_core_instance.free_instance0.public_ip
 }
 
 
