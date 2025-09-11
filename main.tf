@@ -145,7 +145,10 @@ resource "oci_core_instance" "free_instance0" {
   compartment_id      = var.compartment_ocid
   display_name        = "freeInstance0"
   shape               = "VM.Standard.A1.Flex"
-
+  shape_config {
+    memory_in_gbs = 6
+    ocpus = 1
+  }
   create_vnic_details {
     subnet_id        = oci_core_subnet.test_subnet.id
     display_name     = "primaryvnic"
